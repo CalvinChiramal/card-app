@@ -6,7 +6,15 @@ void main() {
   ));
 }
 
-class Card extends StatelessWidget {
+class Card extends StatefulWidget {
+  @override
+  _CardState createState() => _CardState();
+}
+
+class _CardState extends State<Card> {
+  
+  int level = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +29,32 @@ class Card extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.grey[850],
         elevation: 0,
+      ),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              if(level>1) {
+                setState(() {
+                  level-=1;
+                });
+              }
+            },
+            child: Icon(Icons.remove),
+            backgroundColor: Colors.grey[800],
+          ),
+          SizedBox(width: 10,),
+          FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                level+=1;
+              });
+            },
+            child: Icon(Icons.add),
+            backgroundColor: Colors.grey[800],
+          ),
+        ]
       ),
       body: Padding(
         padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
@@ -64,7 +98,7 @@ class Card extends StatelessWidget {
             ),
             SizedBox(height: 10,),
             Text(
-              'Windrunners',
+              'Windrunners-$level',
               style: TextStyle(
                 color: Colors.lightBlue[600],
                 letterSpacing: 2,
